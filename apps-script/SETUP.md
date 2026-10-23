@@ -7,22 +7,25 @@ The RSVP form on the site talks to a small script attached to a Google Sheet in 
 1. Go to https://sheets.new and name it something like **Wedding RSVPs**.
 2. Rename the first tab to **Guests** and put these headers in row 1:
 
-   | A | B | C | D |
-   |---|---|---|---|
-   | Party | Name | Also known as | Plus-one |
+   | A | B | C | D | E |
+   |---|---|---|---|---|
+   | Party | Name | Also known as | Plus-one | Child |
 
-   One row per invited person. People who share an invitation share a **Party** code (any short label: `P01`, `Smiths`, …).
+   One row per invited person, never two names in one row. People who share an invitation share a **Party** code (any short label: `P01`, `Smiths`, …). Anyone in a party can look themselves up and reply for everyone in it, in one go.
    - **Name**: first and last, as on the invitation envelope. This is what guests type to find themselves.
    - **Also known as**: optional other names they might type, separated by commas (`Bill Smith, Will Smith`).
    - **Plus-one**: `Y` on any one row of a party lets that party bring a guest. Leave blank otherwise.
+   - **Child**: `Y` for children. They're tagged on the form, skip the dinner choice, and are counted separately in Responses and in your emails.
+   - Columns after E are yours for notes or formulas; the script ignores them. Don't put totals in rows under the list.
 
    Example:
 
-   | Party | Name | Also known as | Plus-one |
-   |---|---|---|---|
-   | P01 | Jordan Example | | Y |
-   | P02 | Alex Sample | Alexandra Sample | |
-   | P02 | Sam Sample | Samuel Sample | |
+   | Party | Name | Also known as | Plus-one | Child |
+   |---|---|---|---|---|
+   | P01 | Jordan Example | | Y | |
+   | P02 | Alex Sample | Alexandra Sample | | |
+   | P02 | Sam Sample | Samuel Sample | | |
+   | P02 | Riley Sample | | | Y |
 
 3. Add a second tab named **Responses**. Leave it empty; the script writes the headers on the first reply.
 4. Add a third tab named **Settings**:

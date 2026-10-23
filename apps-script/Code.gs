@@ -6,8 +6,8 @@
  *   POST {JSON as text/plain} saves the party's answers (one row per person, updated in place on a resubmit)
  *
  * The sheet has three tabs (see SETUP.md):
- *   Guests     Party | Name | Also known as | Plus-one
- *   Responses  Updated | Party | Guest | Kind | Attending | Meal | Dietary needs | Song request | Note | Email
+ *   Guests     Party | Name | Also known as | Plus-one | Child
+ *   Responses  Updated | Party | Guest | Kind | Attending | Meal | Dietary needs | Song request | Note | Email | Child
  *   Settings   Deadline | <date>      Notify email | <address>   (column A is the label, column B the value)
  *
  * The guest list never leaves the sheet: a lookup must match a full first and last name, and returns
@@ -17,7 +17,7 @@
 var GUESTS = "Guests";
 var RESPONSES = "Responses";
 var SETTINGS = "Settings";
-var RESPONSE_HEADERS = ["Updated", "Party", "Guest", "Kind", "Attending", "Meal", "Dietary needs", "Song request", "Note", "Email"];
+var RESPONSE_HEADERS = ["Updated", "Party", "Guest", "Kind", "Attending", "Meal", "Dietary needs", "Song request", "Note", "Email", "Child"];
 var MAX_TEXT = 500;
 var MIN_FILL_MS = 2500; // a person takes longer than this to fill in the form; a bot doesn't
 
@@ -70,6 +70,11 @@ function sheet_(name) {
   return sh;
 }
 
+// "Y", "yes", "true" or "1" in a flag column (Plus-one, Child)
+function flag_(v) {
+  return /^(y|yes|true|1)$/i.test(String(v == null ? "" : v).trim());
+}
+
 function guests_() {
   var rows = sheet_(GUESTS).getDataRange().getValues().slice(1);
   var out = [];
@@ -77,7 +82,7 @@ function guests_() {
     var party = String(r[0]).trim(), name = String(r[1]).trim();
     if (!party || !name) return;
     var aliases = String(r[2] || "").split(",").map(function (s) { return s.trim(); }).filter(String);
-    out.push({ party: party, name: name, names: [name].concat(aliases), plusOne: /^(y|yes|true|1)$/i.test(String(r[3]).trim()) });
+    out.push({ party: party, name: name, names: [name].concat(aliases), plusOne: flag_(r[3]), child: flag_(r[4]) });
   });
   return out;
 }
@@ -127,6 +132,7 @@ function lookup_(typedName) {
       id: party.id,
       guests: party.members.map(function (g) { return g.name; }),
       plusOne: party.members.some(function (g) { return g.plusOne; }),
+      children: party.members.filter(function (g) { return g.child; }).map(function (g) { return g.name; }),
     },
     responses: existing_(party.id),
   };
@@ -163,7 +169,7 @@ function submit_(body) {
     var a = answers.filter(function (x) { return x && x.name === m.name; })[0];
     if (!a) throw new Error("missing answer for a party member");
     var yes = attending_(a.attending) === "Yes";
-    rows.push({ guest: m.name, kind: "Guest", attending: yes ? "Yes" : "No", meal: yes ? clean_(a.meal) : "", dietary: yes ? clean_(a.dietary) : "" });
+    rows.push({ guest: m.name, kind: "Guest", child: m.child, attending: yes ? "Yes" : "No", meal: yes ? clean_(a.meal) : "", dietary: yes ? clean_(a.dietary) : "" });
   });
   var allowsPlusOne = party.members.some(function (m) { return m.plusOne; });
   if (allowsPlusOne && body.plusOne && body.plusOne.attending === "yes" && clean_(body.plusOne.name)) {
@@ -180,7 +186,8 @@ function submit_(body) {
   try {
     var sh = sheet_(RESPONSES);
     var values = sh.getDataRange().getValues();
-    if (values.length === 0 || String(values[0][0]) !== RESPONSE_HEADERS[0]) {
+    // Write the header row on the first reply, and again if a newer version of this script added a column.
+    if (values.length === 0 || String(values[0][0]) !== RESPONSE_HEADERS[0] || String(values[0][RESPONSE_HEADERS.length - 1] || "") !== RESPONSE_HEADERS[RESPONSE_HEADERS.length - 1]) {
       sh.getRange(1, 1, 1, RESPONSE_HEADERS.length).setValues([RESPONSE_HEADERS]);
       values = sh.getDataRange().getValues();
     }
@@ -189,7 +196,7 @@ function submit_(body) {
     var at = {};
     for (var i = 1; i < values.length; i++) at[keyOf(String(values[i][1]), String(values[i][3]), String(values[i][2]))] = i + 1;
     rows.forEach(function (r) {
-      var line = [now, party.id, r.guest, r.kind, r.attending, r.meal, r.dietary, song, note, email];
+      var line = [now, party.id, r.guest, r.kind, r.attending, r.meal, r.dietary, song, note, email, r.child ? "Y" : ""];
       var rowNum = at[keyOf(party.id, r.kind, r.guest)];
       if (rowNum) sh.getRange(rowNum, 1, 1, line.length).setValues([line]);
       else sh.appendRow(line);
@@ -206,16 +213,18 @@ function notify_(settings, partyId, rows, song, note, email) {
   var to = String(settings["notify email"] || "").trim() || Session.getEffectiveUser().getEmail();
   if (!to) return;
   var yes = rows.filter(function (r) { return r.attending === "Yes"; }).length;
+  var kids = rows.filter(function (r) { return r.attending === "Yes" && r.child; }).length;
   var no = rows.filter(function (r) { return r.attending === "No" && r.guest; }).length;
+  var coming = kids ? yes + " coming: " + (yes - kids) + (yes - kids === 1 ? " adult, " : " adults, ") + kids + (kids === 1 ? " child" : " children") : yes + " coming";
   var lines = rows.filter(function (r) { return r.guest; }).map(function (r) {
-    return "- " + r.guest + (r.kind === "Plus-one" ? " (plus-one)" : "") + ": " + (r.attending === "Yes" ? "coming" : "not coming") +
+    return "- " + r.guest + (r.kind === "Plus-one" ? " (plus-one)" : "") + (r.child ? " (child)" : "") + ": " + (r.attending === "Yes" ? "coming" : "not coming") +
       (r.meal ? ", meal: " + r.meal : "") + (r.dietary ? ", dietary: " + r.dietary : "");
   });
   if (song) lines.push("", "Song request: " + song);
   if (note) lines.push("", "Note: " + note);
   if (email) lines.push("", "Email: " + email);
   try {
-    MailApp.sendEmail(to, "RSVP from " + rows[0].guest + " (" + yes + " coming, " + no + " not)", lines.join("\n"));
+    MailApp.sendEmail(to, "RSVP from " + rows[0].guest + " (" + coming + "; " + no + " not)", lines.join("\n"));
   } catch (err) {
     console.error(err); // the RSVP is saved even if the email can't go out (e.g. the daily quota is used up)
   }

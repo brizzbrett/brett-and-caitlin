@@ -21,13 +21,16 @@ const check = (label, cond, detail = "") => {
 function makeBackend({ deadline }) {
   const tabs = {
     Guests: [
-      ["Party", "Name", "Also known as", "Plus-one"],
+      ["Party", "Name", "Also known as", "Plus-one", "Child"],
       ["P01", "Ada Lovelace", "Augusta Lovelace", "Y"],
       ["P02", "Grace Hopper", "", ""],
       ["P02", "Vincent Hopper", "Vince Hopper", ""],
       ["P03", "José Núñez", "", ""],
       ["P04", "Sam Lee", "", ""],
       ["P05", "Sam Lee", "", ""],
+      ["P06", "Pat Rivers", "", "", ""],
+      ["P06", "Robin Rivers", "", "", "Y"],
+      ["P06", "Jamie Rivers", "", "", "y"],
     ],
     Responses: [["Updated", "Party", "Guest", "Kind", "Attending", "Meal", "Dietary needs", "Song request", "Note", "Email"]],
     Settings: [["Deadline", deadline], ["Notify email", "couple@example.com"]],
@@ -85,7 +88,7 @@ const past = new Date(Date.now() - 2 * 864e5);
   check("submit saves one row per guest", r1.ok && b.tabs.Responses.length === 3, JSON.stringify(b.tabs.Responses));
   check("declined guest's dietary note is dropped", b.tabs.Responses[2][6] === "");
   check("formula-looking text is escaped", b.tabs.Responses[1][8].startsWith("'="));
-  check("the couple gets an email", b.mail.length === 1 && b.mail[0].to === "couple@example.com" && /1 coming, 1 not/.test(b.mail[0].subject));
+  check("the couple gets an email", b.mail.length === 1 && b.mail[0].to === "couple@example.com" && /1 coming; 1 not/.test(b.mail[0].subject));
   const r2 = b.post({ ...base, guests: [{ ...base.guests[0], attending: "no" }, { ...base.guests[1], attending: "yes" }] });
   check("resubmit updates rows in place", r2.ok && b.tabs.Responses.length === 3 && b.tabs.Responses[1][4] === "No" && b.tabs.Responses[2][4] === "Yes");
   const again = b.get("Grace Hopper");
@@ -99,6 +102,18 @@ const past = new Date(Date.now() - 2 * 864e5);
   check("plus-one change updates the same row", p1.length === 1 && p1[0][4] === "No" && p1[0][2] === "");
   b.post({ party: "P02", lookupName: "Grace Hopper", elapsed: 9000, guests: base.guests, plusOne: { attending: "yes", name: "Sneaky Extra" } });
   check("plus-one is ignored when not allowed", !b.tabs.Responses.some((r) => r[2] === "Sneaky Extra"));
+  // A household with children: one lookup, one reply for everyone, children marked.
+  const riv = b.get("Robin Rivers");
+  check("a child's name finds the whole household", riv.ok && riv.party.guests.length === 3);
+  check("lookup says which guests are children", riv.party.children.join() === "Robin Rivers,Jamie Rivers");
+  b.post({ party: "P06", lookupName: "Pat Rivers", elapsed: 9000, guests: [
+    { name: "Pat Rivers", attending: "yes" }, { name: "Robin Rivers", attending: "yes" }, { name: "Jamie Rivers", attending: "no" }] });
+  check("the Responses header gains the Child column", b.tabs.Responses[0][10] === "Child");
+  const rivRows = b.tabs.Responses.filter((r) => r[1] === "P06");
+  check("one reply saves a row per household member", rivRows.length === 3);
+  check("children are marked in Responses", rivRows.filter((r) => r[10] === "Y").map((r) => r[2]).join() === "Robin Rivers,Jamie Rivers" && rivRows.find((r) => r[2] === "Pat Rivers")[10] === "");
+  const rivMail = b.mail[b.mail.length - 1];
+  check("the email counts adults and children", /2 coming: 1 adult, 1 child; 1 not/.test(rivMail.subject) && /Robin Rivers \(child\): coming/.test(rivMail.body), rivMail.subject);
   check("bad attending value is refused", b.post({ ...adaBase, guests: [{ name: "Ada Lovelace", attending: "maybe" }] }).error === "server");
 }
 {
@@ -181,6 +196,14 @@ try {
     await page.waitForSelector("[data-rsvp-done]:not([hidden])");
     const after = b.tabs.Responses.filter((r) => r[1] === "P01");
     check(`[${label}] changing the reply updates rows in place`, after.length === 2 && after.some((r) => r[3] === "Plus-one" && r[4] === "No"));
+    // A household with children replies on one form, with the children tagged.
+    await page.goto(`http://127.0.0.1:${server.address().port}/rsvp/`);
+    await page.fill("#rsvp-name", "Jamie Rivers");
+    await page.click("text=Find my invitation");
+    await page.waitForSelector("[data-rsvp-reply]:not([hidden])");
+    check(`[${label}] the household shares one form`, (await page.locator("[data-guest]").count()) === 3);
+    check(`[${label}] children are tagged`, (await page.locator("[data-guest][data-child] .tag").count()) === 2);
+    await page.screenshot({ path: path.join(root, "shots", `rsvp-family-${label}.png`), fullPage: true });
     check(`[${label}] no console errors`, errors.length === 0, errors.join("\n"));
     await page.close();
   }

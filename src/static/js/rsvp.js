@@ -43,19 +43,20 @@ if (root) {
   };
 
   // One card per person in the party, with "accepts" / "declines" and, if attending, dinner and dietary needs.
-  const guestCard = (name, i, prior) => {
+  // Children are tagged and skip the dinner choice (the kids' meal is set with the caterer).
+  const guestCard = (name, i, prior, child) => {
     const id = `g${i}`;
     const choice = (value, label) => el("label", { class: "choice" },
       el("input", { type: "radio", name: `${id}-attending`, value, checked: prior?.attending === (value === "yes" ? "Yes" : "No") }),
       el("span", { text: label }));
-    const card = el("div", { class: "guest", "data-guest": name },
-      el("h3", { text: name }),
+    const card = el("div", { class: "guest", "data-guest": name, "data-child": child },
+      el("h3", {}, name, child ? el("span", { class: "tag", text: "Child" }) : ""),
       el("div", { class: "field" },
         el("span", { class: "visually-hidden", id: `${id}-q`, text: `Will ${name} be there?` }),
         el("div", { class: "choices", role: "radiogroup", "aria-labelledby": `${id}-q` },
           choice("yes", "Joyfully accepts"), choice("no", "Regretfully declines"))),
       el("div", { class: "if-attending" },
-        meals.length ? el("div", { class: "field" }, el("label", { for: `${id}-meal`, text: "Dinner" }), el("select", { id: `${id}-meal`, "data-meal": "" })) : "",
+        meals.length && !child ? el("div", { class: "field" }, el("label", { for: `${id}-meal`, text: "Dinner" }), el("select", { id: `${id}-meal`, "data-meal": "" })) : "",
         el("div", { class: "field" }, el("label", { for: `${id}-dietary`, text: "Allergies or dietary needs" }),
           el("input", { id: `${id}-dietary`, type: "text", "data-dietary": "", value: prior?.dietary || false }))));
     const select = card.querySelector("[data-meal]");
@@ -69,7 +70,8 @@ if (root) {
   const showReply = (data, lookupName) => {
     current = { lookupName, party: data.party, openedAt: Date.now() };
     const prior = (kind, name) => data.responses.find((r) => r.kind === kind && (kind === "Plus-one" || r.guest === name));
-    guestsBox.replaceChildren(...data.party.guests.map((g, i) => guestCard(g, i, prior("Guest", g))));
+    const children = data.party.children || [];
+    guestsBox.replaceChildren(...data.party.guests.map((g, i) => guestCard(g, i, prior("Guest", g), children.includes(g))));
     plusOne.hidden = !data.party.plusOne;
     if (data.party.plusOne) {
       const p = prior("Plus-one");
@@ -133,7 +135,7 @@ if (root) {
     }));
     const missing = guests.find((g) => !g.attending);
     if (missing) return say(replyStatus, `Please let us know whether ${missing.name} can make it.`, true);
-    const noMeal = meals.length && guests.find((g) => g.attending === "yes" && !g.meal);
+    const noMeal = meals.length && guests.find((g, i) => g.attending === "yes" && !g.meal && !guestsBox.children[i].hasAttribute("data-child"));
     if (noMeal) return say(replyStatus, `Please choose a dinner for ${noMeal.name}.`, true);
     let po = null;
     if (!plusOne.hidden) {
