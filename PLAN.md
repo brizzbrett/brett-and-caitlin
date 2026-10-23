@@ -5,6 +5,8 @@
 
 RSVP is built and tested (`node tools/test-rsvp.mjs`: 44 checks covering the Apps Script backend against a fake sheet and the form in a browser). It stays switched off until Brett deploys the script (`apps-script/SETUP.md`) and `site.json.rsvpEndpoint` is set.
 
+**Change (2026-10-23):** Brett and Caitlin want the midsommar feel without literal midsummer imagery. The maypole is replaced everywhere (Home hero, logo mark, favicon, share card) by a hand-tied bouquet of the same seven flowers, with ribbon tails in the same satin-ribbon colors. Its layout lives in `src/_data/bouquet.js`, and it's drawn by `_includes/bouquet.njk`. Later sections of this plan that describe the maypole are superseded.
+
 Checks at launch: `npm run check` is clean (links and HTML). Lighthouse on mobile gives Performance 92–94, Accessibility 100 and Best Practices 100. SEO is 63 on purpose, because of noindex.
 
 ## Context

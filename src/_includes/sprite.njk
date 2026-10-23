@@ -1,4 +1,4 @@
-{#- The seven midsummer flowers, drawn as flat paper cut-outs with white linework, plus the maypole mark.
+{#- The seven midsummer flowers, drawn as flat paper cut-outs with white linework, plus the bouquet mark.
     Use with <svg class="flower"><use href="#f-daisy"/></svg>. Every page of the site has one flower. -#}
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
@@ -89,15 +89,14 @@
     <circle cx="32" cy="32" r="2.2" fill="#FFFDF7"/>
   </symbol>
 
-  {#- The maypole mark: a leafy pole and crossbar with a wreath hanging from each arm. -#}
-  <symbol id="maypole-mark" viewBox="0 0 64 64">
-    <g fill="none" stroke="currentColor" stroke-linecap="round">
-      <path d="M32 4 L32 61" stroke-width="3.4"/>
-      <path d="M13 20 L51 20" stroke-width="3.4"/>
-      <circle cx="16" cy="33" r="7.5" stroke-width="3"/>
-      <circle cx="48" cy="33" r="7.5" stroke-width="3"/>
-      <path d="M16 20 L16 25.5 M48 20 L48 25.5" stroke-width="1.6"/>
+  {#- The bouquet mark: three flowers on stems gathered with a bow. -#}
+  <symbol id="bouquet-mark" viewBox="0 0 64 64">
+    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="17" cy="22" r="7.5" stroke-width="3"/>
+      <circle cx="47" cy="22" r="7.5" stroke-width="3"/>
+      <circle cx="32" cy="12" r="7.5" stroke-width="3"/>
+      <path d="M21 28.5 L32 45 M43 28.5 L32 45 M32 19.5 L32 45 M32 45 L27 61 M32 45 L32 62 M32 45 L37 61" stroke-width="2.6"/>
+      <path d="M32 45 C26 39 19 42 22 47 C24 50.5 29 48 32 45 Z M32 45 C38 39 45 42 42 47 C40 50.5 35 48 32 45 Z" stroke-width="2.2"/>
     </g>
-    <circle cx="32" cy="5" r="3.2" fill="currentColor"/>
   </symbol>
 </svg>
