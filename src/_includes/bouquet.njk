@@ -5,7 +5,7 @@
 <svg class="bouquet" viewBox="0 0 400 580" role="img" aria-label="A hand-tied bouquet of poppies, cornflowers, daisies, buttercups, clover, cranesbill and harebells, with colorful ribbons.">
   <g class="leaves">
     {%- for l in bouquet.leaves %}
-    <g transform="translate({{ l.x }} {{ l.y }}) rotate({{ l.rot }})"><g class="bloom" style="--i: {{ loop.index0 }}">
+    <g transform="translate({{ l.x }} {{ l.y }}) rotate({{ l.rot }})"><g class="bloom" style="--i: {{ loop.index0 }}; transform-origin: 0 0">
       <path d="M0 4 C-10 -8 -9 -30 0 -44 C9 -30 10 -8 0 4 Z" fill="{{ l.fill }}"/>
       <path d="M0 0 L0 -36" stroke="#FFFDF7" stroke-width="1.3" stroke-linecap="round"/>
     </g></g>
@@ -13,24 +13,24 @@
   </g>
   <g class="stems" fill="none" stroke-linecap="round">
     {%- for f in bouquet.flowers %}
-    <path class="stem" d="{{ f.stem }}" pathLength="1" stroke="{{ '#2F5D3A' if loop.index % 2 else '#3E6B45' }}" stroke-width="3.2"/>
+    <path class="stem" d="{{ f.stem }}" stroke="{{ '#2F5D3A' if loop.index % 2 else '#3E6B45' }}" stroke-width="3.2"/>
     {%- endfor %}
     {%- for d in bouquet.ends %}
-    <path class="stem stem-end" d="{{ d }}" pathLength="1" stroke="#3E6B45" stroke-width="4"/>
+    <path class="stem stem-end" d="{{ d }}" stroke="#3E6B45" stroke-width="4"/>
     {%- endfor %}
   </g>
   {%- for f in bouquet.fillers %}
-  <g transform="{% if f.flip %}translate({{ f.x * 2 }} 0) scale(-1 1) {% endif %}rotate({{ f.rot }} {{ f.x }} {{ f.y }})"><use class="bloom" style="--i: {{ f.i }}" href="#f-{{ f.kind }}" x="{{ f.x - f.size / 2 }}" y="{{ f.y - f.size / 2 }}" width="{{ f.size }}" height="{{ f.size }}"/></g>
+  <g transform="{% if f.flip %}translate({{ f.x * 2 }} 0) scale(-1 1) {% endif %}rotate({{ f.rot }} {{ f.x }} {{ f.y }})"><g class="bloom" style="--i: {{ f.i }}; transform-origin: {{ f.x }}px {{ f.y }}px"><use href="#f-{{ f.kind }}" x="{{ f.x - f.size / 2 }}" y="{{ f.y - f.size / 2 }}" width="{{ f.size }}" height="{{ f.size }}"/></g></g>
   {%- endfor %}
   {%- for f in bouquet.flowers %}
-  <g transform="rotate({{ f.rot }} {{ f.x }} {{ f.y }})"><use class="bloom" style="--i: {{ f.i }}" href="#f-{{ f.kind }}" x="{{ f.x - f.size / 2 }}" y="{{ f.y - f.size / 2 }}" width="{{ f.size }}" height="{{ f.size }}"/></g>
+  <g transform="rotate({{ f.rot }} {{ f.x }} {{ f.y }})"><g class="bloom" style="--i: {{ f.i }}; transform-origin: {{ f.x }}px {{ f.y }}px"><use href="#f-{{ f.kind }}" x="{{ f.x - f.size / 2 }}" y="{{ f.y - f.size / 2 }}" width="{{ f.size }}" height="{{ f.size }}"/></g></g>
   {%- endfor %}
   <g class="ribbons" fill="none" stroke-width="5" stroke-linecap="round">
     {%- for r in bouquet.tails %}
-    <path class="ribbon" style="--i: {{ loop.index0 }}" d="{{ r.d }}" pathLength="1" stroke="{{ r.color }}"/>
+    <path class="ribbon" style="--i: {{ loop.index0 }}" d="{{ r.d }}" stroke="{{ r.color }}"/>
     {%- endfor %}
   </g>
-  <g class="bow">
+  <g class="bow" style="transform-origin: {{ t.x }}px {{ t.y }}px">
     <path d="M{{ t.x }} {{ t.y }} C{{ t.x - 30 }} {{ t.y - 30 }} {{ t.x - 62 }} {{ t.y - 18 }} {{ t.x - 52 }} {{ t.y + 4 }} C{{ t.x - 44 }} {{ t.y + 20 }} {{ t.x - 16 }} {{ t.y + 12 }} {{ t.x }} {{ t.y }} Z" fill="#E0338E"/>
     <path d="M{{ t.x }} {{ t.y }} C{{ t.x + 30 }} {{ t.y - 30 }} {{ t.x + 62 }} {{ t.y - 18 }} {{ t.x + 52 }} {{ t.y + 4 }} C{{ t.x + 44 }} {{ t.y + 20 }} {{ t.x + 16 }} {{ t.y + 12 }} {{ t.x }} {{ t.y }} Z" fill="#7B3FB0"/>
     <path d="M{{ t.x - 12 }} {{ t.y - 2 }} C{{ t.x - 26 }} {{ t.y - 16 }} {{ t.x - 44 }} {{ t.y - 10 }} {{ t.x - 42 }} {{ t.y + 1 }}" fill="none" stroke="#FFFDF7" stroke-width="1.3" stroke-linecap="round"/>
