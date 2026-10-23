@@ -261,11 +261,14 @@ p, ul, ol, dl { margin: 0 0 1em; }
   .bouquet-wrap { order: 3; width: min(17rem, 80vw); }
 }
 
-/* The bouquet gathers itself: the stems grow up through the tie, the flowers and leaves bloom, then the ribbon tails unfurl.
-   The dash pattern exists only inside the keyframes (600 is longer than any stroke), so when an animation ends or
-   never runs the strokes are plain solid lines. Each stroke is also hidden until it starts, so a round cap can't show as a dot. */
-.bouquet .stem { animation: grow 0.5s ease-out 0.45s backwards; }
-.bouquet .stem-end { animation-delay: 0.1s; animation-duration: 0.4s; }
+/* The bouquet gathers itself: the stems stretch up and down out of the tie, the flowers and leaves bloom, then the
+   ribbon tails unfurl. Every animation holds only its start frame ("backwards"), so once it ends, or if it never runs,
+   everything is drawn plainly. The stems use a transform rather than a stroke-dash reveal, which iOS Safari can drop.
+   The ribbon dash pattern exists only inside its keyframes (600 is longer than any ribbon); each ribbon is hidden
+   until it starts, so a round cap can't show as a dot. */
+.bouquet .stems-up, .bouquet .stems-down { transform-box: view-box; }
+.bouquet .stems-up { animation: rise 0.55s ease-out 0.35s backwards; }
+.bouquet .stems-down { animation: rise 0.35s ease-out 0.1s backwards; }
 /* Each piece blooms about its own center, given in the markup as SVG coordinates (Safari mis-centers transform-box: fill-box). */
 .bouquet .bloom, .bouquet .bow { transform-box: view-box; }
 .bouquet .bloom { animation: bloom 0.45s cubic-bezier(.3, 1.6, .5, 1) both; animation-delay: calc(0.8s + var(--i) * 40ms); }
@@ -274,11 +277,11 @@ p, ul, ol, dl { margin: 0 0 1em; }
 .bouquet .ribbons { animation: sway 6s ease-in-out 3.8s infinite alternate; transform-box: view-box; transform-origin: 200px 421px; }
 @keyframes bloom { from { transform: scale(0); } to { transform: scale(1); } }
 @keyframes unfurl { from { stroke-dasharray: 600; stroke-dashoffset: 600; opacity: 0; } 1% { opacity: 1; } to { stroke-dasharray: 600; stroke-dashoffset: 0; } }
-@keyframes grow { from { stroke-dasharray: 600; stroke-dashoffset: -600; opacity: 0; } 1% { opacity: 1; } to { stroke-dasharray: 600; stroke-dashoffset: 0; } }
+@keyframes rise { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 @keyframes sway { from { transform: rotate(-2deg); } to { transform: rotate(2deg); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .bouquet .stem, .bouquet .bloom, .bouquet .bow, .bouquet .ribbon, .bouquet .ribbons { animation: none; }
+  .bouquet .stems-up, .bouquet .stems-down, .bouquet .bloom, .bouquet .bow, .bouquet .ribbon, .bouquet .ribbons { animation: none; }
   html { scroll-behavior: auto; }
 }
 

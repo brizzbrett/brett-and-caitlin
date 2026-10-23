@@ -11,13 +11,17 @@
     </g></g>
     {%- endfor %}
   </g>
-  <g class="stems" fill="none" stroke-linecap="round">
-    {%- for f in bouquet.flowers %}
-    <path class="stem" d="{{ f.stem }}" stroke="{{ '#2F5D3A' if loop.index % 2 else '#3E6B45' }}" stroke-width="3.2"/>
-    {%- endfor %}
-    {%- for d in bouquet.ends %}
-    <path class="stem stem-end" d="{{ d }}" stroke="#3E6B45" stroke-width="4"/>
-    {%- endfor %}
+  <g fill="none" stroke-linecap="round">
+    <g class="stems-up" style="transform-origin: {{ t.x }}px {{ t.y }}px">
+      {%- for f in bouquet.flowers %}
+      <path d="{{ f.stem }}" stroke="{{ '#2F5D3A' if loop.index % 2 else '#3E6B45' }}" stroke-width="3.2"/>
+      {%- endfor %}
+    </g>
+    <g class="stems-down" style="transform-origin: {{ t.x }}px {{ t.y }}px">
+      {%- for d in bouquet.ends %}
+      <path d="{{ d }}" stroke="#3E6B45" stroke-width="4"/>
+      {%- endfor %}
+    </g>
   </g>
   {%- for f in bouquet.fillers %}
   <g transform="{% if f.flip %}translate({{ f.x * 2 }} 0) scale(-1 1) {% endif %}rotate({{ f.rot }} {{ f.x }} {{ f.y }})"><g class="bloom" style="--i: {{ f.i }}; transform-origin: {{ f.x }}px {{ f.y }}px"><use href="#f-{{ f.kind }}" x="{{ f.x - f.size / 2 }}" y="{{ f.y - f.size / 2 }}" width="{{ f.size }}" height="{{ f.size }}"/></g></g>
