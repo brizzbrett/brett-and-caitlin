@@ -22,8 +22,9 @@ flowers.push(
 );
 // Harebells hang off the two sides, and a daisy bud sits under the front.
 const fillers = [
-  { x: 66, y: 252, size: 50, kind: "harebell", rot: -15 },
-  { x: 334, y: 252, size: 50, kind: "harebell", rot: -15, flip: true }, // mirrored
+  // Each bell hangs outward, so its stem rises from the tie and arches over into the bell.
+  { x: 66, y: 252, size: 50, kind: "harebell", rot: 10, flip: true }, // mirrored
+  { x: 334, y: 252, size: 50, kind: "harebell", rot: 10 },
   { x: 200, y: 298, size: 34, kind: "daisy", rot: 0 },
 ];
 
@@ -48,4 +49,17 @@ const tails = [["#7B3FB0", 136, 548], ["#E0338E", 160, 566], ["#F2C230", 186, 57
     d: `M${TIE.x} ${TIE.y + 6} C${round(TIE.x + (x - TIE.x) * 0.3)} 455 ${x + (k % 2 ? 16 : -16)} 495 ${x} ${y}`,
   }));
 
-export default { tie: TIE, flowers: placed, fillers: fillers.map((f) => ({ ...f, i: i++ })), leaves, ends, tails };
+// Filler stems join each filler to the tie: a harebell's at the free end of its own arched stem (the icon's
+// point 8,8 of 64, carried through the icon's rotation and mirroring), a bud's at its center.
+const stemTo = (x, y) => `M${round(x)} ${round(y)} Q${round(x * 0.35 + TIE.x * 0.65)} ${round((y + TIE.y) / 2 + 20)} ${TIE.x} ${TIE.y}`;
+const fillerStem = (f) => {
+  if (f.kind !== "harebell") return stemTo(f.x, f.y);
+  const k = f.size / 64, px = f.x - f.size / 2 + 8 * k, py = f.y - f.size / 2 + 8 * k;
+  const a = rad(f.rot), dx = px - f.x, dy = py - f.y;
+  let x = f.x + dx * Math.cos(a) - dy * Math.sin(a);
+  const y = f.y + dx * Math.sin(a) + dy * Math.cos(a);
+  if (f.flip) x = 2 * f.x - x;
+  return stemTo(x, y);
+};
+
+export default { tie: TIE, flowers: placed, fillers: fillers.map((f) => ({ ...f, i: i++, stem: fillerStem(f) })), leaves, ends, tails };

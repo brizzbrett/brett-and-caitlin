@@ -13,7 +13,7 @@
   </g>
   <g fill="none" stroke-linecap="round">
     <g class="stems-up" style="transform-origin: {{ t.x }}px {{ t.y }}px">
-      {%- for f in bouquet.flowers %}
+      {%- for f in bouquet.flowers.concat(bouquet.fillers) %}
       <path d="{{ f.stem }}" stroke="{{ '#2F5D3A' if loop.index % 2 else '#3E6B45' }}" stroke-width="3.2"/>
       {%- endfor %}
     </g>
