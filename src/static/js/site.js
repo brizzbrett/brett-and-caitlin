@@ -1,4 +1,32 @@
-// Small enhancements: the countdown, the mobile menu, the photo lightbox. The RSVP form lives in rsvp.js.
+// Small enhancements: staying up to date, the countdown, the mobile menu, the photo lightbox. The RSVP form lives in rsvp.js.
+
+// Staying up to date. A site saved to an iPhone Home Screen runs as its own app, with no reload button, and can keep
+// showing an old copy. So when the page opens or comes back to the foreground, it asks for the latest build id
+// (never from cache), and if a newer version is live, loads it. A new ?v= address gets past any cached copy of the
+// page; the ?v= is removed from the address bar afterwards. Never while someone is typing in a form.
+{
+  const current = document.querySelector('meta[name="build"]')?.content;
+  const buildUrlBase = document.currentScript.src; // .../js/site.js, so ../build.json is at the site root
+  const url = new URL(location.href);
+  const tried = url.searchParams.get("v");
+  if (tried) { url.searchParams.delete("v"); history.replaceState(null, "", url); }
+  let typing = false;
+  document.addEventListener("input", () => { typing = true; });
+  const check = async () => {
+    if (!current || typing) return;
+    try {
+      const res = await fetch(new URL("../build.json?t=" + Date.now(), buildUrlBase), { cache: "no-store" });
+      const { id } = await res.json();
+      if (id && id !== current && id !== tried) {
+        const next = new URL(location.href);
+        next.searchParams.set("v", id);
+        location.replace(next);
+      }
+    } catch { /* offline or not deployed yet: keep the page as it is */ }
+  };
+  check();
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") check(); });
+}
 
 // Countdown: whole days until midnight Eastern on the wedding day.
 for (const el of document.querySelectorAll("[data-countdown]")) {
