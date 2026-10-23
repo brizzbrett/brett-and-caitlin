@@ -34,6 +34,7 @@ for (const [label, viewport] of [["desktop", { width: 1440, height: 900 }], ["ph
   const page = await browser.newPage({ viewport, colorScheme: dark ? "dark" : "light", reducedMotion: reduced ? "reduce" : "no-preference" });
   page.on("console", (m) => m.type() === "error" && problems.push(`${label} console: ${m.text()}`));
   page.on("requestfailed", (r) => problems.push(`${label} failed: ${r.url()}`));
+  page.on("response", (r) => r.status() >= 400 && problems.push(`${label} ${r.status()}: ${r.url()}`));
   for (const p of pages) {
     await page.goto(base + p, { waitUntil: "networkidle" });
     // Load every lazy image before the full-page capture.

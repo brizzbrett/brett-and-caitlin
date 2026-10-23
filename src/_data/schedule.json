@@ -1,0 +1,10 @@
+{
+  "note": "Times are 24-hour \"HH:MM\" strings, or null until they're set. Add weekend events (a welcome party, a farewell brunch) to \"weekend\" with a \"day\" like \"Saturday, May 1\".",
+  "weekend": [],
+  "day": [
+    { "time": null, "title": "Ceremony", "where": null, "text": "Please arrive about 30 minutes early to park and find your seat." },
+    { "time": null, "title": "Cocktail hour", "where": null, "text": "Drinks and small bites." },
+    { "time": null, "title": "Dinner and dancing", "where": null, "text": "Dinner, toasts, and the dance floor." },
+    { "time": null, "title": "Last dance", "where": null, "text": "The night wraps up around 11 PM." }
+  ]
+}

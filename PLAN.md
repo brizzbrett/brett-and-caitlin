@@ -1,5 +1,12 @@
 # Brett & Caitlin wedding website: plan
 
+## Status (2026-10-22)
+**P0–P5 are built and live** at https://brizzbrett.github.io/brett-and-caitlin/. All pages are up, with "coming soon" notes wherever a decision is still open. `CONTENT.md` lists every open item and where it goes.
+
+RSVP is built and tested (`node tools/test-rsvp.mjs`: 44 checks covering the Apps Script backend against a fake sheet and the form in a browser). It stays switched off until Brett deploys the script (`apps-script/SETUP.md`) and `site.json.rsvpEndpoint` is set.
+
+Checks at launch: `npm run check` is clean (links and HTML). Lighthouse on mobile gives Performance 92–94, Accessibility 100 and Best Practices 100. SEO is 63 on purpose, because of noindex.
+
 ## Context
 Brett and Caitlin marry on **Sunday, May 2, 2027 at Dover Hall**, 1500 Manakin Rd, Manakin-Sabot, VA 23103 (Goochland County, near Richmond). The ceremony and reception are both at the venue. They want a wedding website with every common section:
 - countdown

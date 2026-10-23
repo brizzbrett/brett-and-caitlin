@@ -1,0 +1,56 @@
+---
+layout: page.njk
+title: Our story
+cloth: cobalt
+intro: How we got here, and some photos along the way.
+---
+{%- if story.chapters.length %}
+{%- for c in story.chapters %}
+<section class="chapter">
+  <h2>{{ c.title }}</h2>
+  {%- if c.when %}<p class="lede">{{ c.when }}</p>{% endif %}
+  {%- if c.photo %}<figure class="arch"><img src="/assets/photos/{{ c.photo }}" alt="{{ c.alt or c.title }}" sizes="(min-width: 40rem) 38rem, 92vw" eleventy:widths="600,1200"></figure>{% endif %}
+  {{ c.text | safe }}
+</section>
+{%- endfor %}
+{%- else %}
+<div class="soon">
+  <strong>Our story is on its way</strong>
+  <p>We're writing up how we met and how the proposal happened. Check back soon.</p>
+</div>
+{%- endif %}
+
+{%- if story.party.length %}
+<h2>The wedding party</h2>
+<ul class="party">
+  {%- for p in story.party %}
+  <li>
+    {%- if p.photo %}<img src="/assets/photos/{{ p.photo }}" alt="{{ p.name }}" sizes="10rem" eleventy:widths="320">{% endif %}
+    <span class="name">{{ p.name }}</span>
+    <span class="role">{{ p.role }}</span>
+  </li>
+  {%- endfor %}
+</ul>
+{%- endif %}
+
+<h2 id="photos">Photos</h2>
+{%- if gallery.length %}
+<ul class="gallery">
+  {%- for g in gallery %}
+  <li><button type="button" data-gallery-item aria-label="View larger: {{ g.alt }}"><img src="/assets/photos/{{ g.file }}" alt="{{ g.alt }}" sizes="(min-width: 60rem) 19rem, (min-width: 30rem) 45vw, 92vw" eleventy:widths="480,960,1600"></button></li>
+  {%- endfor %}
+</ul>
+<dialog class="lightbox" data-lightbox aria-label="Photo">
+  <div data-lightbox-stage></div>
+  <div class="lightbox-bar">
+    <button class="btn" type="button" data-lightbox-prev>Previous</button>
+    <button class="btn" type="button" data-lightbox-close>Close</button>
+    <button class="btn" type="button" data-lightbox-next>Next</button>
+  </div>
+</dialog>
+{%- else %}
+<div class="soon">
+  <strong>Engagement photos are coming</strong>
+  <p>We'll post them here soon. After the wedding, this is where the wedding photos will go too.</p>
+</div>
+{%- endif %}

@@ -1,0 +1,75 @@
+---
+layout: page.njk
+title: RSVP
+cloth: violet
+---
+{%- set endpoint = env.rsvpEndpoint or site.rsvpEndpoint %}
+{%- if endpoint %}
+<p class="lede">Find your invitation, then reply for everyone in your party. Please reply by <strong>{{ site.rsvpDeadline | longDate }}</strong>. You can come back and change your answers until then.</p>
+
+<div class="rsvp" data-rsvp data-endpoint="{{ endpoint }}" data-meals="{{ (site.meals or []) | dump }}">
+  <form data-rsvp-find novalidate>
+    <div class="field">
+      <label for="rsvp-name">Your first and last name</label>
+      <span class="hint" id="rsvp-name-hint">As it's written on your invitation.</span>
+      <input id="rsvp-name" name="name" type="text" autocomplete="name" required aria-describedby="rsvp-name-hint">
+    </div>
+    <p class="rsvp-status" role="status" data-rsvp-find-status></p>
+    <button class="btn" type="submit">Find my invitation</button>
+  </form>
+
+  <form data-rsvp-reply hidden novalidate>
+    <div data-rsvp-guests></div>
+    <div class="guest" data-rsvp-plusone hidden>
+      <h3>Bringing a guest?</h3>
+      <div class="field">
+        <span class="visually-hidden" id="po-legend">Are you bringing a guest?</span>
+        <div class="choices" role="radiogroup" aria-labelledby="po-legend">
+          <label class="choice"><input type="radio" name="po-attending" value="yes"><span>Yes, I'm bringing a guest</span></label>
+          <label class="choice"><input type="radio" name="po-attending" value="no" checked><span>No, just me</span></label>
+        </div>
+      </div>
+      <div class="if-attending">
+        <div class="field"><label for="po-name">Their first and last name</label><input id="po-name" type="text" autocomplete="off"></div>
+        <div class="field" data-meal-field hidden><label for="po-meal">Their dinner</label><select id="po-meal"></select></div>
+        <div class="field"><label for="po-dietary">Allergies or dietary needs</label><input id="po-dietary" type="text"></div>
+      </div>
+    </div>
+    <div class="field">
+      <label for="rsvp-song">A song that'll get you dancing <span class="hint">Optional</span></label>
+      <input id="rsvp-song" type="text">
+    </div>
+    <div class="field">
+      <label for="rsvp-note">A note for us <span class="hint">Optional. Anything we should know, including any help you'd like on the day.</span></label>
+      <textarea id="rsvp-note"></textarea>
+    </div>
+    <div class="field">
+      <label for="rsvp-email">Your email <span class="hint">Optional. Only for updates about the wedding.</span></label>
+      <input id="rsvp-email" type="email" autocomplete="email">
+    </div>
+    <div class="hp" aria-hidden="true"><label for="rsvp-website">Website</label><input id="rsvp-website" type="text" tabindex="-1" autocomplete="off"></div>
+    <p class="rsvp-status" role="status" data-rsvp-reply-status></p>
+    <div class="btn-row">
+      <button class="btn" type="submit">Send RSVP</button>
+      <button class="btn btn-quiet" type="button" data-rsvp-restart>Not you? Search again</button>
+    </div>
+  </form>
+
+  <section class="done" data-rsvp-done hidden tabindex="-1" aria-labelledby="rsvp-done-title">
+    <svg class="flower" aria-hidden="true"><use href="#f-cranesbill"/></svg>
+    <h2 id="rsvp-done-title">Thank you!</h2>
+    <p data-rsvp-done-text></p>
+    <ul class="summary" data-rsvp-summary></ul>
+    <p>Need to change something? Search for your name again before {{ site.rsvpDeadline | longDate }}.</p>
+    <p><a class="btn btn-quiet" href="/schedule/">See the schedule</a></p>
+  </section>
+</div>
+<script src="/js/rsvp.js" defer></script>
+{%- else %}
+<p class="lede">You'll reply here, right on this page, for everyone in your invitation.</p>
+<div class="soon">
+  <strong>RSVPs open with the invitations</strong>
+  <p>Once invitations are out, you'll be able to find yours by name here and reply for your whole party. Please reply by {{ site.rsvpDeadline | longDate }}.</p>
+</div>
+<p>In the meantime, you can <a href="/brett-and-caitlin-wedding.ics" download>save the date</a> and look at <a href="/travel/#hotels">places to stay</a>.</p>
+{%- endif %}

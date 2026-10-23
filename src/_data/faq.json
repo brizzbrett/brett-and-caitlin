@@ -1,0 +1,15 @@
+[
+  { "q": "When should I arrive?", "a": "<p>Plan to arrive about 30 minutes before the ceremony so you have time to park and find a seat. Times are on the <a href=\"/schedule/\">schedule</a> once they're set.</p>" },
+  { "q": "What should I wear?", "a": "<p>We'll share the dress code with the invitations. Parts of the evening are outside on gravel and lawn, so block heels or flats are kinder than stilettos, and early-May evenings in Virginia cool into the 50s, so bring a layer.</p>", "dressCode": null },
+  { "q": "What if it rains?", "a": "<p>We're covered. If the weather turns, the ceremony moves inside to Dover Hall's Grand Ballroom, and the venue makes that call by noon the day before.</p>" },
+  { "q": "Is there parking?", "a": "<p>Yes. Parking at Dover Hall is free, with room for everyone. There's no valet.</p><p>If you'd rather not drive home, you can leave your car overnight, as long as you pick it up by 11 AM the next morning.</p>" },
+  { "q": "Can I take an Uber or Lyft?", "a": "<p>Rideshares serve Dover Hall, but it's out in the country and waits can be long late at night. Schedule your ride home ahead of time.</p>" },
+  { "q": "Is the venue accessible?", "a": "<p>Yes. Dover Hall has ramps, an elevator between floors, an accessible restroom, and accessible parking. If you'd like a hand with anything on the day, let us know in your RSVP and we'll make sure someone's there to help.</p>" },
+  { "q": "The wedding is on a Sunday. Should I stay Sunday night?", "a": "<p>If you're traveling, we'd suggest it. The celebration runs into the evening, and Monday-morning flights out of Richmond are easy to make from the Short Pump hotels.</p>" },
+  { "q": "Can I bring a date?", "a": null },
+  { "q": "Are kids invited?", "a": null },
+  { "q": "Can I take photos during the ceremony?", "a": null },
+  { "q": "When do I need to RSVP?", "a": "<p>Please reply by {deadline} on the <a href=\"/rsvp/\">RSVP page</a>. You can look your invitation up again and change your answers until then.</p>" },
+  { "q": "Do you have a registry?", "a": "<p>Having you there is the gift. If you'd like to give something too, the <a href=\"/registry/\">registry page</a> has the details.</p>" },
+  { "q": "I have a question that isn't here.", "a": null, "needs": "contactEmail" }
+]

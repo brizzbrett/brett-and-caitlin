@@ -1,0 +1,18 @@
+---
+layout: page.njk
+title: Registry
+cloth: sky
+intro: Having you there is the real gift. If you'd like to give something too, here's where to find us.
+---
+{%- if registries.length %}
+<ul class="registries">
+  {%- for r in registries %}
+  <li><a href="{{ r.url }}"><span><strong>{{ r.name }}</strong>{% if r.note %}<br>{{ r.note }}{% endif %}</span><span>Open registry</span></a></li>
+  {%- endfor %}
+</ul>
+{%- else %}
+<div class="soon">
+  <strong>Our registry is coming</strong>
+  <p>We're still putting it together. Links will be here soon.</p>
+</div>
+{%- endif %}

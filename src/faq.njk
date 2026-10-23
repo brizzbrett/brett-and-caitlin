@@ -1,0 +1,20 @@
+---
+layout: page.njk
+title: FAQ
+heading: Questions and answers
+cloth: poppy
+intro: The practical things people usually ask.
+---
+{#- Questions whose answer is still null are left off until it's decided. -#}
+<div class="faq">
+  {%- for item in faq %}
+  {%- set answer = item.a %}
+  {%- if item.needs == "contactEmail" and site.contactEmail %}{% set answer = "<p>Write to us at <a href=\"mailto:" + site.contactEmail + "\">" + site.contactEmail + "</a> and we'll get back to you.</p>" %}{% endif %}
+  {%- if answer %}
+  <details>
+    <summary>{{ item.q }}</summary>
+    <div class="answer">{{ answer | replace("{deadline}", site.rsvpDeadline | longDate) | safe }}</div>
+  </details>
+  {%- endif %}
+  {%- endfor %}
+</div>

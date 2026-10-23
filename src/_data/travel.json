@@ -1,0 +1,28 @@
+{
+  "arrivals": [
+    { "name": "Richmond International Airport (RIC)", "drive": "35–45 minutes", "note": "The closest airport, with nonstop flights from most East Coast hubs." },
+    { "name": "Amtrak Staples Mill Road station (RVR)", "drive": "about 25 minutes", "note": "Richmond's busiest station. Some trains skip downtown's Main Street Station, so book to Staples Mill." },
+    { "name": "Charlottesville Albemarle Airport (CHO)", "drive": "about 1 hour 20 minutes", "note": "A smaller airport to the west." },
+    { "name": "Washington Reagan (DCA) or Dulles (IAD)", "drive": "2½–3 hours", "note": "More flight choices, but plan for I-95 traffic." }
+  ],
+  "hotelBlocks": [],
+  "hotels": [
+    { "name": "Residence Inn Short Pump at the Notch", "address": "1800 Wilkes Ridge Cir, Richmond, VA 23233", "drive": "about 11 minutes", "partner": false, "note": "The closest hotel to Dover Hall." },
+    { "name": "Hyatt House Richmond/Short Pump", "address": "11800 W Broad St, Richmond, VA 23233", "drive": "about 15 minutes", "partner": true, "note": "Walk to Short Pump Town Center's shops and restaurants." },
+    { "name": "Hilton Richmond Hotel & Spa/Short Pump", "address": "12042 W Broad St, Richmond, VA 23233", "drive": "about 15 minutes", "partner": false, "note": "Full-service, with a spa and restaurant." },
+    { "name": "Residence Inn Richmond Northwest/Short Pump", "address": "3940 Westerre Pkwy, Henrico, VA 23233", "drive": "about 20 minutes", "partner": true, "note": "Suites with kitchens." },
+    { "name": "Aloft Richmond West/Short Pump", "address": "3939 Duckling Dr, Glen Allen, VA 23060", "drive": "about 20 minutes", "partner": true, "note": "" },
+    { "name": "The Jefferson Hotel", "address": "101 W Franklin St, Richmond, VA 23220", "drive": "about 35 minutes", "partner": false, "note": "Richmond's grand historic hotel, downtown." },
+    { "name": "Quirk Hotel", "address": "201 W Broad St, Richmond, VA 23220", "drive": "about 35 minutes", "partner": false, "note": "A boutique art hotel in the downtown arts district." }
+  ],
+  "todo": [
+    { "name": "Virginia Museum of Fine Arts", "url": "https://www.vmfa.museum", "text": "Free general admission, open every day, with a sculpture garden." },
+    { "name": "Maymont", "url": "https://maymont.org", "text": "A 100-acre Gilded Age estate with gardens, a mansion, and native wildlife. Free to enter." },
+    { "name": "Lewis Ginter Botanical Garden", "url": "https://www.lewisginter.org", "text": "Spring gardens, likely in full bloom the week of the wedding." },
+    { "name": "Belle Isle and the James River", "url": "https://jamesriverpark.org/explore-the-park-belle-isle/", "text": "Walk the footbridge to an island in the river, with trails and rocks for sunning. Richmond even has whitewater rafting downtown." },
+    { "name": "Carytown", "url": null, "text": "Richmond's \"Mile of Style\": shops, cafés, and restaurants along Cary Street." },
+    { "name": "Scott's Addition", "url": null, "text": "The city's brewery and cidery district, all within a few blocks." },
+    { "name": "Hardywood West Creek", "url": "https://www.hardywood.com/west-creek", "text": "A big brewery on 24 acres by Tuckahoe Creek, about 4 miles from Dover Hall." },
+    { "name": "Hollywood Cemetery", "url": null, "text": "A peaceful, hilly 19th-century garden cemetery above the James." }
+  ]
+}

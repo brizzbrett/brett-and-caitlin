@@ -1,0 +1,64 @@
+---
+layout: page.njk
+title: Travel
+heading: Travel and stay
+cloth: clover
+intro: Dover Hall is in Goochland County, about 30 minutes west of downtown Richmond and 15 minutes from the hotels in Short Pump.
+---
+<h2>Getting here</h2>
+<ul class="places">
+  {%- for a in travel.arrivals %}
+  <li class="place">
+    <h3>{{ a.name }}</h3>
+    <p class="meta">{{ a.drive }} to Dover Hall</p>
+    <p>{{ a.note }}</p>
+  </li>
+  {%- endfor %}
+</ul>
+<p>Drive times are without traffic. You'll want a car or a scheduled ride: Dover Hall is in the countryside, and no public transit goes out to it.</p>
+
+<h2>Driving and parking</h2>
+<p>Put <strong>{{ site.venue.street }}, {{ site.venue.city }}, {{ site.venue.state }} {{ site.venue.zip }}</strong> into your maps app. From Short Pump, head west on Broad Street Road (US-250), then turn onto Manakin Road.</p>
+<p>Parking is free, and there's plenty of it. If you'd rather not drive home, you can leave your car overnight and pick it up by 11 AM the next morning. Uber and Lyft serve the area, but waits can be long out here late at night, so schedule your ride home ahead of time.</p>
+<p><a class="btn" href="{{ site.venue.mapUrl }}">Directions in Google Maps</a></p>
+
+<h2 id="hotels">Where to stay</h2>
+{%- if travel.hotelBlocks.length %}
+<p>We've reserved rooms at these hotels. Book by the date shown to get the group rate.</p>
+<ul class="places">
+  {%- for h in travel.hotelBlocks %}
+  <li class="place">
+    <h3>{{ h.name }} <span class="tag">Our room block</span></h3>
+    <p class="meta">{{ h.address }}. {{ h.drive }} to Dover Hall.</p>
+    <p>{% if h.code %}Group code <strong>{{ h.code }}</strong>. {% endif %}Book by {{ h.cutoff | longDate }}.</p>
+    {%- if h.url %}<p><a href="{{ h.url }}">Book a room</a></p>{% endif %}
+  </li>
+  {%- endfor %}
+</ul>
+{%- else %}
+<div class="soon">
+  <strong>Room blocks are coming</strong>
+  <p>We're setting up group rates and will post booking links here. In the meantime, these are the closest good options.</p>
+</div>
+{%- endif %}
+<p>Short Pump is the closest place to stay, about 15 minutes from Dover Hall, with plenty of restaurants. Downtown Richmond is about 35 minutes away and has more to do. Hotels marked as Dover Hall partners have preferred rates for the venue's guests.</p>
+<ul class="places">
+  {%- for h in travel.hotels %}
+  <li class="place">
+    <h3><a href="https://www.google.com/maps/search/?api=1&amp;query={{ (h.name + ' ' + h.address) | urlencode }}">{{ h.name }}</a>{% if h.partner %} <span class="tag">Dover Hall partner</span>{% endif %}</h3>
+    <p class="meta">{{ h.address }}. {{ h.drive }} to Dover Hall.</p>
+    {%- if h.note %}<p>{{ h.note }}</p>{% endif %}
+  </li>
+  {%- endfor %}
+</ul>
+
+<h2 id="things-to-do">Things to do in Richmond</h2>
+<p>Making a weekend of it? Here are a few good ways to spend a spring day in and around Richmond.</p>
+<ul class="places">
+  {%- for t in travel.todo %}
+  <li class="place">
+    <h3><a href="{{ t.url or ('https://www.google.com/maps/search/?api=1&query=' + ((t.name + ' Richmond VA') | urlencode)) }}">{{ t.name }}</a></h3>
+    <p>{{ t.text }}</p>
+  </li>
+  {%- endfor %}
+</ul>

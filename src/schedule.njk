@@ -1,0 +1,56 @@
+---
+layout: page.njk
+title: Schedule
+cloth: lemon
+intro: Everything happens at Dover Hall, so once you're there, you're set for the night.
+---
+{%- if schedule.weekend.length %}
+<h2>The weekend</h2>
+<ol class="timeline">
+  {%- for e in schedule.weekend %}
+  <li>
+    <span class="time">{{ e.day }}{% if e.time %}, {{ e.time | clock }}{% endif %}</span>
+    <h3>{{ e.title }}</h3>
+    {%- if e.where %}<p class="meta">{{ e.where }}</p>{% endif %}
+    <p>{{ e.text }}</p>
+  </li>
+  {%- endfor %}
+</ol>
+{%- endif %}
+
+<h2>{{ site.date | longDate }}</h2>
+{%- if not site.ceremonyTime %}
+<div class="soon">
+  <strong>Times are coming with the invitations</strong>
+  <p>Here's the shape of the day. We'll fill in the times as soon as they're set.</p>
+</div>
+{%- endif %}
+<ol class="timeline">
+  {%- for e in schedule.day %}
+  <li>
+    {%- if e.time %}<span class="time">{{ e.time | clock }}</span>{% else %}<span class="time tbd">Time to come</span>{% endif %}
+    <h3>{{ e.title }}</h3>
+    {%- if e.where %}<p class="meta">{{ e.where }}</p>{% endif %}
+    <p>{{ e.text }}</p>
+  </li>
+  {%- endfor %}
+</ol>
+
+<h2>The place</h2>
+<p>{{ site.venue.name }} is an English Tudor-style estate on 55 acres of gardens, ponds, and vineyard in {{ site.venue.region }}.</p>
+<dl class="facts">
+  <dt>Address</dt>
+  <dd>{{ site.venue.name }}<br>{{ site.venue.street }}<br>{{ site.venue.city }}, {{ site.venue.state }} {{ site.venue.zip }}</dd>
+  <dt>Parking</dt>
+  <dd>Free, on site</dd>
+  <dt>Sunset</dt>
+  <dd>About 8:00 PM</dd>
+  <dt>Weather</dt>
+  <dd>Usually mid-70s by day and low 50s after dark, so bring a layer</dd>
+  <dt>If it rains</dt>
+  <dd>The ceremony moves into the Grand Ballroom</dd>
+</dl>
+<div class="btn-row">
+  <a class="btn" href="{{ site.venue.mapUrl }}">Open in Google Maps</a>
+  <a class="btn btn-quiet" href="/travel/">Getting here</a>
+</div>

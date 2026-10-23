@@ -1,0 +1,5 @@
+{
+  "note": "Each chapter is { \"title\": \"How we met\", \"when\": \"2019\", \"text\": \"<p>...</p>\", \"photo\": \"story/how-we-met.jpg\" or null }. Photos go in src/assets/photos/. Party members: { \"name\", \"role\", \"photo\" or null }.",
+  "chapters": [],
+  "party": []
+}
