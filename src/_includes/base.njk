@@ -27,8 +27,8 @@
   <link rel="preload" href="/fonts/fraunces-latin-full-italic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <script>document.documentElement.className = "js";</script>
-  <link rel="stylesheet" href="/css/site.css">
-  <script src="/js/site.js" defer></script>
+  <link rel="stylesheet" href="{{ '/css/site.css' | bust }}">
+  <script src="{{ '/js/site.js' | bust }}" defer></script>
 </head>
 <body class="cloth-{{ cloth or 'fern' }}{% if bodyClass %} {{ bodyClass }}{% endif %}">
   {% include "sprite.njk" %}

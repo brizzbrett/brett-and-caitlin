@@ -1,5 +1,7 @@
 import { HtmlBasePlugin } from "@11ty/eleventy";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
+import crypto from "node:crypto";
+import fs from "node:fs";
 
 export default function (eleventyConfig) {
   // Rewrites root-relative URLs ("/rsvp/") to include the GitHub Pages path prefix.
@@ -32,6 +34,12 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("clock", (t) => {
     const [h, m] = t.split(":").map(Number);
     return `${((h + 11) % 12) + 1}:${String(m).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`;
+  });
+  // "/css/site.css" -> "/css/site.css?v=1a2b3c4d": a new URL whenever the file changes, so browsers don't keep
+  // serving a stale copy for the 10 minutes GitHub Pages lets them cache it.
+  eleventyConfig.addFilter("bust", (url) => {
+    const hash = crypto.createHash("md5").update(fs.readFileSync("./src/static" + url)).digest("hex").slice(0, 8);
+    return `${url}?v=${hash}`;
   });
   eleventyConfig.addFilter("navItem", (nav, url) => nav.find((n) => n.url === url));
 
