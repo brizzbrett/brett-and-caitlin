@@ -1,0 +1,39 @@
+{#- The hero maypole: a birch-leaf pole and crossbar, a flower wreath hanging from each arm, and six satin ribbons
+    (the colors of the ribbon maypole at Dover Hall's Midsummer). CSS raises it, blooms the wreaths, then unfurls the ribbons. -#}
+{%- set kinds = ["poppy", "daisy", "cornflower", "buttercup", "clover", "cranesbill", "harebell"] %}
+{%- set ribbons = [["#7B3FB0", "M200 52 C150 160 70 300 22 470"], ["#E0338E", "M200 52 C170 180 120 330 88 520"], ["#F2C230", "M200 52 C190 200 160 360 150 540"], ["#4CAF50", "M200 52 C210 200 240 360 252 540"], ["#3A6BD8", "M200 52 C230 180 280 330 312 520"], ["#D8322E", "M200 52 C250 160 330 300 378 470"]] %}
+<svg class="maypole" viewBox="0 0 400 580" role="img" aria-label="A maypole wrapped in green leaves, with a flower wreath hanging from each arm and six ribbons.">
+  <g class="ribbons">
+    {%- for r in ribbons %}
+    <path class="ribbon" style="--i: {{ loop.index0 }}" d="{{ r[1] }}" pathLength="1" fill="none" stroke="{{ r[0] }}" stroke-width="5" stroke-linecap="round"/>
+    {%- endfor %}
+  </g>
+  <g class="pole">
+    <rect x="195" y="46" width="10" height="514" rx="4" fill="#3E6B45"/>
+    {%- for y in range(66, 556, 15) %}
+    <ellipse cx="190" cy="{{ y }}" rx="8.5" ry="3.6" transform="rotate(-32 190 {{ y }})" fill="{{ '#2F5D3A' if loop.index % 2 else '#5E8C3A' }}"/>
+    <ellipse cx="210" cy="{{ y + 7 }}" rx="8.5" ry="3.6" transform="rotate(32 210 {{ y + 7 }})" fill="{{ '#5E8C3A' if loop.index % 2 else '#2F5D3A' }}"/>
+    {%- endfor %}
+    <rect x="70" y="165" width="260" height="10" rx="4" fill="#3E6B45"/>
+    {%- for x in range(78, 326, 15) %}{% if x < 186 or x > 214 %}
+    <ellipse cx="{{ x }}" cy="162" rx="3.6" ry="8" transform="rotate(28 {{ x }} 162)" fill="{{ '#2F5D3A' if loop.index % 2 else '#5E8C3A' }}"/>
+    <ellipse cx="{{ x + 7 }}" cy="178" rx="3.6" ry="8" transform="rotate(28 {{ x + 7 }} 178)" fill="{{ '#5E8C3A' if loop.index % 2 else '#2F5D3A' }}"/>
+    {%- endif %}{% endfor %}
+    {%- for cx in [88, 312] %}
+    {%- set w = loop.index0 %}
+    <path d="M{{ cx - 22 }} 176 L{{ cx }} 214 L{{ cx + 22 }} 176" fill="none" stroke="#3E6B45" stroke-width="2.4"/>
+    <circle cx="{{ cx }}" cy="262" r="48" fill="none" stroke="#2F5D3A" stroke-width="9"/>
+    {%- for a in range(0, 360, 20) %}
+    <ellipse cx="{{ cx }}" cy="214" rx="4" ry="10" transform="rotate({{ a }} {{ cx }} 262) rotate(60 {{ cx }} 214)" fill="{{ '#5E8C3A' if loop.index % 2 else '#2F5D3A' }}"/>
+    {%- endfor %}
+    {%- for a in range(0, 360, 36) %}
+    <g transform="rotate({{ a }} {{ cx }} 262)"><use class="bloom" style="--i: {{ loop.index0 + w * 10 }}" href="#f-{{ kinds[(loop.index0 + w * 3) % 7] }}" x="{{ cx - 13 }}" y="201" width="26" height="26"/></g>
+    {%- endfor %}
+    {%- endfor %}
+    <circle cx="200" cy="44" r="15" fill="#2F5D3A"/>
+    <use class="bloom" style="--i: 3" href="#f-buttercup" x="184" y="28" width="32" height="32"/>
+  </g>
+  {%- for f in [[150, "daisy"], [176, "poppy"], [204, "cornflower"], [228, "buttercup"], [252, "clover"], [130, "harebell"], [272, "daisy"]] %}
+  <use class="bloom" style="--i: {{ 20 + loop.index0 }}" href="#f-{{ f[1] }}" x="{{ f[0] - 16 }}" y="534" width="34" height="34"/>
+  {%- endfor %}
+</svg>

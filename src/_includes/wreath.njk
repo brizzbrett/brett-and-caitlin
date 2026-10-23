@@ -1,0 +1,11 @@
+{#- A flower crown (blomsterkrans) drawn flat: a leafy ring with the seven flowers around it, twice. -#}
+{%- set kinds = ["daisy", "cornflower", "buttercup", "clover", "cranesbill", "harebell", "poppy"] %}
+<svg viewBox="0 0 300 300" aria-hidden="true">
+  <circle cx="150" cy="150" r="118" fill="none" stroke="#2F5D3A" stroke-width="6"/>
+  {%- for a in range(0, 360, 12) %}
+  <ellipse cx="150" cy="32" rx="5" ry="13" transform="rotate({{ a }} 150 150) rotate({{ 55 if loop.index % 2 else -55 }} 150 32)" fill="{{ '#5E8C3A' if loop.index % 2 else '#2F5D3A' }}"/>
+  {%- endfor %}
+  {%- for a in range(0, 360, 360 / 14) %}
+  <g transform="rotate({{ a }} 150 150)"><use href="#f-{{ kinds[loop.index0 % 7] }}" x="131" y="13" width="38" height="38"/></g>
+  {%- endfor %}
+</svg>

@@ -1,0 +1,9 @@
+[
+  { "label": "Home", "url": "/", "flower": "daisy", "flowerName": "ox-eye daisy", "cloth": "fern" },
+  { "label": "Our story", "url": "/story/", "flower": "cornflower", "flowerName": "cornflower", "cloth": "cobalt", "blurb": "How we got here, and photos." },
+  { "label": "Schedule", "url": "/schedule/", "flower": "buttercup", "flowerName": "buttercup", "cloth": "lemon", "blurb": "When to arrive and what happens when." },
+  { "label": "Travel", "url": "/travel/", "flower": "clover", "flowerName": "red clover", "cloth": "clover", "blurb": "Flights, hotels, and things to do in Richmond." },
+  { "label": "RSVP", "url": "/rsvp/", "flower": "cranesbill", "flowerName": "wood cranesbill", "cloth": "violet", "blurb": "Find your invitation and reply for your party." },
+  { "label": "Registry", "url": "/registry/", "flower": "harebell", "flowerName": "harebell", "cloth": "sky", "blurb": "If you'd like to give a gift." },
+  { "label": "FAQ", "url": "/faq/", "flower": "poppy", "flowerName": "poppy", "cloth": "poppy", "blurb": "Dress code, parking, weather and more." }
+]

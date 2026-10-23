@@ -1,0 +1,22 @@
+{
+  "name": "brett-and-caitlin",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Brett & Caitlin's wedding website. May 2, 2027, Dover Hall.",
+  "type": "module",
+  "scripts": {
+    "build": "eleventy",
+    "build:pages": "eleventy --pathprefix=/brett-and-caitlin/",
+    "start": "eleventy --serve",
+    "check": "npm run build && node tools/check-links.mjs && html-validate \"_site/**/*.html\""
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "3.1.2",
+    "@11ty/eleventy-img": "6.0.4",
+    "@fontsource-variable/fraunces": "5.3.0",
+    "@fontsource-variable/schibsted-grotesk": "5.3.0",
+    "html-validate": "11.16.0",
+    "lighthouse": "13.5.0",
+    "playwright": "1.55.0"
+  }
+}

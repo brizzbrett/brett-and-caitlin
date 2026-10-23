@@ -1,0 +1,18 @@
+---
+layout: base.njk
+---
+{#- Inner pages: the page's own "tablecloth" print with a scalloped place card on it, then the content. -#}
+{%- set here = nav | navItem(page.url) %}
+<header class="page-head cloth">
+  <div class="place-card">
+    {%- if here %}<svg class="flower flower-lg" aria-hidden="true"><use href="#f-{{ here.flower }}"/></svg>{% endif %}
+    <h1>{{ heading or title }}</h1>
+    {%- if intro %}<p class="lede">{{ intro | safe }}</p>{% endif %}
+  </div>
+</header>
+<div class="page-body">
+  {{ content | safe }}
+</div>
+{%- if here %}
+<p class="flower-note"><svg class="flower" aria-hidden="true"><use href="#f-{{ here.flower }}"/></svg>This page's flower is the {{ here.flowerName }}.</p>
+{%- endif %}

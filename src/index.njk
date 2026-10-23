@@ -1,0 +1,78 @@
+---
+layout: base.njk
+cloth: fern
+---
+{%- set calText = site.names[0] + " & " + site.names[1] + "'s wedding" %}
+{%- set calWhere = site.venue.name + ", " + site.venue.street + ", " + site.venue.city + ", " + site.venue.state + " " + site.venue.zip %}
+<section class="hero" aria-labelledby="hero-title">
+  <h1 id="hero-title" class="visually-hidden">{{ site.names[0] }} and {{ site.names[1] }} are getting married</h1>
+  <div class="hero-grid">
+    <p class="hero-name left" aria-hidden="true">{{ site.names[0] }}</p>
+    <div class="maypole-wrap">{% include "maypole.njk" %}</div>
+    <p class="hero-name right" aria-hidden="true"><span class="hero-amp">&amp;</span>{{ site.names[1] }}</p>
+  </div>
+  <div class="hero-text">
+    <p class="hero-when">{{ site.date | longDate }}</p>
+    <p class="hero-where">{{ site.venue.name }}, {{ site.venue.city }}, Virginia</p>
+    <div class="btn-row">
+      <a class="btn" href="/rsvp/">{% if site.rsvpEndpoint %}RSVP by {{ site.rsvpDeadline | monthDay }}{% else %}About the RSVP{% endif %}</a>
+      <a class="btn btn-quiet" href="/travel/">Plan your trip</a>
+    </div>
+  </div>
+  <svg class="hero-meadow" viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70 L0 44 C16 38 22 22 34 36 C44 48 52 30 64 26 C76 22 80 42 94 40 C110 38 112 18 128 22 C146 26 148 46 166 42 C182 38 186 26 202 30 C220 34 222 50 242 44 C258 39 262 20 280 26 C298 32 300 46 318 42 C336 38 340 24 358 30 C374 35 378 48 396 44 C414 40 418 22 436 28 C452 33 456 46 474 42 C492 38 494 26 512 30 C530 34 534 48 552 44 C570 40 572 20 590 26 C608 32 612 48 630 44 C648 40 650 28 668 30 C686 32 690 46 708 42 C726 38 728 22 746 28 C764 34 768 46 786 42 C804 38 806 26 824 30 C842 34 844 50 864 44 C882 39 884 22 902 28 C920 34 922 46 940 42 C958 38 962 24 980 30 C996 35 1000 48 1018 44 C1036 40 1040 22 1058 28 C1074 33 1078 46 1096 42 C1114 38 1116 26 1134 30 C1152 34 1156 48 1174 44 C1186 41 1192 36 1200 38 L1200 70 Z"/></svg>
+</section>
+<div class="cloth cloth-band" aria-hidden="true"></div>
+
+<section class="section">
+  <div class="day">
+    <div class="countdown">
+      {% include "wreath.njk" %}
+      <p class="countdown-text" data-countdown data-date="{{ site.date }}">
+        <span class="countdown-num" data-countdown-num>{{ site.date | daysUntil }}</span>
+        <span class="countdown-label" data-countdown-label>days to go</span>
+      </p>
+    </div>
+    <div class="day-text">
+      <h2>The day</h2>
+      <p>We're getting married on {{ site.date | longDate }}. The ceremony and reception are both at {{ site.venue.name }}, an English Tudor-style estate in {{ site.venue.region }}.</p>
+      {%- if not site.ceremonyTime %}
+      <p>Times will come with the invitations, and they'll be on the <a href="/schedule/">schedule</a> as soon as they're set.</p>
+      {%- else %}
+      <p>The ceremony starts at {{ site.ceremonyTime | clock }}. The <a href="/schedule/">schedule</a> has the rest of the day.</p>
+      {%- endif %}
+      <div class="btn-row">
+        <a class="btn" href="/brett-and-caitlin-wedding.ics" download>Add to calendar</a>
+        <a class="btn btn-quiet" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text={{ calText | urlencode }}&amp;dates={{ site.date | compactDate }}/{{ site.date | nextDay | compactDate }}&amp;location={{ calWhere | urlencode }}&amp;details={{ (site.url + '/') | urlencode }}">Google Calendar</a>
+        <a class="btn btn-quiet" href="{{ site.venue.mapUrl }}">Directions</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-tight" aria-labelledby="pages-title">
+  <h2 id="pages-title">Everything you'll need</h2>
+  <ul class="cards">
+    {%- for item in nav %}{% if item.url != "/" %}
+    <li class="cloth-{{ item.cloth }}">
+      <a class="card" href="{{ item.url }}">
+        <svg class="flower" aria-hidden="true"><use href="#f-{{ item.flower }}"/></svg>
+        <h3>{{ item.label }}</h3>
+        <p>{{ item.blurb }}</p>
+      </a>
+    </li>
+    {%- endif %}{% endfor %}
+  </ul>
+</section>
+
+<section class="seven" aria-labelledby="seven-title">
+  <div class="seven-in">
+    <h2 id="seven-title">Why the maypole?</h2>
+    <p>In Sweden, midsommar is the long-light festival of early summer: a maypole raised in a meadow, flower crowns, and long tables set outside. We're borrowing its spirit for a spring wedding.</p>
+    <p>There's an old tradition that goes with it. On midsummer night you pick seven different wildflowers and sleep with them under your pillow, and you'll dream of the person you're going to marry. Each page of this site has one of the seven.</p>
+    <ul class="seven-row">
+      {%- for item in nav %}
+      <li><svg class="flower" aria-hidden="true"><use href="#f-{{ item.flower }}"/></svg>{{ item.flowerName }}</li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>

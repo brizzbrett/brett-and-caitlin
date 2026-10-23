@@ -1,0 +1,39 @@
+---js
+{
+  // Only built by tools/make-brand.mjs (BRAND=1): the 1200x630 picture shown when the link is shared.
+  permalink: process.env.BRAND ? "/_card/index.html" : false,
+  eleventyExcludeFromCollections: true,
+}
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Share card</title>
+<link rel="stylesheet" href="/css/site.css">
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  .sc { width: 1200px; height: 630px; display: grid; grid-template-columns: 1fr 380px; align-items: center;
+    background: linear-gradient(180deg, #DCE8F2 0%, #F7F8F3 85%); position: relative; padding: 0 70px 0 90px; box-sizing: border-box; }
+  .sc .names { font-family: var(--display); font-style: italic; font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144;
+    font-weight: 480; color: #2F5D3A; font-size: 132px; line-height: 0.92; margin: 0; letter-spacing: -0.02em; }
+  .sc .names span { color: #B23A1C; font-size: 0.55em; }
+  .sc .when { font-family: var(--display); font-size: 40px; color: #23302A; margin: 34px 0 6px; }
+  .sc .where { font-family: var(--body); font-size: 26px; color: #4A564F; margin: 0; }
+  .sc .maypole { height: 560px; width: auto; margin-top: 50px; }
+  .sc .band { position: absolute; left: 0; right: 0; bottom: 0; height: 26px; }
+</style>
+</head>
+<body class="cloth-fern">
+{% include "sprite.njk" %}
+<div class="sc">
+  <div>
+    <p class="names">Brett<br><span>&amp;</span> Caitlin</p>
+    <p class="when">Sunday, May 2, 2027</p>
+    <p class="where">Dover Hall, Manakin-Sabot, Virginia</p>
+  </div>
+  {% include "maypole.njk" %}
+  <div class="band cloth"></div>
+</div>
+</body>
+</html>

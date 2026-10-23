@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- set pageTitle = (title + " | " + site.title) if title else (site.title + ", May 2, 2027") %}
+  <title>{{ pageTitle }}</title>
+  <meta name="description" content="{{ description or site.description }}">
+  {#- A private wedding site: anyone with the link can read it, but search engines are asked not to list it. #}
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#F7F8F3" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1B2440" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ site.title }}">
+  <meta property="og:title" content="{{ pageTitle }}">
+  <meta property="og:description" content="{{ description or site.description }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:image" content="{{ site.url }}/brand/social-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Brett and Caitlin's names beside a flower-covered maypole, with the date May 2, 2027.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="/brand/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png">
+  <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
+  <link rel="preload" href="/fonts/fraunces-latin-full-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <script>document.documentElement.className = "js";</script>
+  <link rel="stylesheet" href="/css/site.css">
+  <script src="/js/site.js" defer></script>
+</head>
+<body class="cloth-{{ cloth or 'fern' }}{% if bodyClass %} {{ bodyClass }}{% endif %}">
+  {% include "sprite.njk" %}
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="topbar-in">
+      <a class="brand" href="/"{% if page.url == "/" %} aria-current="page"{% endif %}>
+        <svg class="brand-mark" aria-hidden="true"><use href="#maypole-mark"/></svg>
+        <span>{{ site.names[0] }} <span class="amp">&amp;</span> {{ site.names[1] }}</span>
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-btn hidden>Menu</button>
+      <nav class="nav" id="site-nav" aria-label="Site">
+        <ul>
+        {%- for item in nav %}{% if item.url != "/" %}
+          <li><a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}><svg class="flower" aria-hidden="true"><use href="#f-{{ item.flower }}"/></svg>{{ item.label }}</a></li>
+        {%- endif %}{% endfor %}
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    {{ content | safe }}
+  </main>
+
+  <footer class="footer">
+    <svg class="meadow" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60 L0 38 C20 30 30 44 48 30 C60 22 66 40 84 34 C104 26 110 12 126 30 C140 44 156 24 170 28 C190 34 196 20 214 26 C236 34 240 44 262 34 C280 26 290 14 306 26 C322 38 336 30 352 32 C376 36 380 18 398 22 C418 28 424 42 446 34 C466 26 472 30 490 36 C506 42 520 24 540 26 C562 28 566 40 586 36 C606 32 612 16 632 22 C652 28 656 40 676 38 C696 36 704 24 722 28 C744 34 748 44 770 36 C790 28 796 14 816 22 C834 30 840 40 860 38 C882 36 886 24 906 28 C928 32 934 42 954 36 C972 30 980 18 998 24 C1018 32 1024 40 1046 36 C1066 32 1072 22 1090 26 C1112 32 1118 42 1140 36 C1160 30 1170 22 1186 30 L1200 34 L1200 60 Z"/></svg>
+    <div class="footer-in">
+      <p class="footer-names">{{ site.names[0] }} &amp; {{ site.names[1] }}</p>
+      <p>{{ site.date | longDate }}<br>{{ site.venue.name }}, {{ site.venue.city }}, Virginia</p>
+      <ul class="footer-links">
+        {%- for item in nav %}{% if item.url != "/" %}<li><a href="{{ item.url }}">{{ item.label }}</a></li>{% endif %}{% endfor %}
+      </ul>
+      {%- if site.contactEmail %}
+      <p>Questions? Write to us at <a href="mailto:{{ site.contactEmail }}">{{ site.contactEmail }}</a></p>
+      {%- endif %}
+    </div>
+  </footer>
+</body>
+</html>

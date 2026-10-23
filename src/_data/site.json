@@ -1,0 +1,24 @@
+{
+  "names": ["Brett", "Caitlin"],
+  "title": "Brett & Caitlin",
+  "description": "Brett and Caitlin are getting married on Sunday, May 2, 2027 at Dover Hall in Manakin-Sabot, Virginia.",
+  "date": "2027-05-02",
+  "timezone": "America/New_York",
+  "ceremonyTime": null,
+  "venue": {
+    "name": "Dover Hall",
+    "street": "1500 Manakin Rd",
+    "city": "Manakin-Sabot",
+    "state": "VA",
+    "zip": "23103",
+    "region": "Goochland County, about 30 minutes west of Richmond",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Dover+Hall+1500+Manakin+Rd+Manakin-Sabot+VA+23103",
+    "website": "https://www.doverhall.com"
+  },
+  "url": "https://brizzbrett.github.io/brett-and-caitlin",
+  "contactEmail": null,
+  "hashtag": null,
+  "rsvpEndpoint": null,
+  "rsvpDeadline": "2027-04-04",
+  "meals": null
+}
