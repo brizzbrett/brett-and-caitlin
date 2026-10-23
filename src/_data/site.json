@@ -18,7 +18,7 @@
   "url": "https://brizzbrett.github.io/brett-and-caitlin",
   "contactEmail": null,
   "hashtag": null,
-  "rsvpEndpoint": null,
+  "rsvpEndpoint": "https://script.google.com/macros/s/AKfycbzenPtm9Gw776jGbeyPzZ_q7Ek3tdAN9qgo8KDhf_0TqVCuHUHP-n-pT-Zwb-tEcb3xLQ/exec",
   "rsvpDeadline": "2027-04-04",
   "meals": null
 }
