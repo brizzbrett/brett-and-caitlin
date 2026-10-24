@@ -28,7 +28,7 @@
   {%- for f in bouquet.flowers %}
   <g transform="rotate({{ f.rot }} {{ f.x }} {{ f.y }})"><g class="bloom" style="--i: {{ f.i }}; transform-origin: {{ f.x }}px {{ f.y }}px"><use href="#f-{{ f.kind }}" x="{{ f.x - f.size / 2 }}" y="{{ f.y - f.size / 2 }}" width="{{ f.size }}" height="{{ f.size }}"/></g></g>
   {%- endfor %}
-  <g class="ribbons" fill="none" stroke-width="6" stroke-linecap="round">
+  <g class="ribbons" fill="none" stroke-width="4.5" stroke-linecap="round">
     {%- for r in bouquet.tails %}
     <path class="ribbon" style="--i: {{ loop.index0 }}" d="{{ r.d }}" stroke="{{ r.color }}"/>
     {%- endfor %}
