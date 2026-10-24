@@ -41,9 +41,10 @@ const placed = flowers.map((f) => ({
   stem: `M${round(f.x)} ${round(f.y)} Q${round(f.x * 0.35 + TIE.x * 0.65)} ${round((f.y + TIE.y) / 2 + 20)} ${TIE.x} ${TIE.y}`,
 }));
 
-// The cut stem ends below the tie, and six ribbon tails in the colors of the satin ribbons.
+// The cut stem ends below the tie, and the bow's two ribbon tails, in lilac (the flower of May) like the bow itself.
+const LILAC = "#A77BD4";
 const ends = [-3, -2, -1, 0, 1, 2, 3].map((k) => `M${TIE.x + k * 3} ${TIE.y} L${TIE.x + k * 8} 556`); // drawn tie-to-end; CSS grows them from the end
-const tails = [["#7B3FB0", 136, 548], ["#E0338E", 160, 566], ["#F2C230", 186, 576], ["#4CAF50", 214, 576], ["#3A6BD8", 240, 566], ["#D8322E", 264, 548]]
+const tails = [[LILAC, 150, 562], [LILAC, 252, 572]]
   .map(([color, x, y], k) => ({
     color,
     d: `M${TIE.x} ${TIE.y + 6} C${round(TIE.x + (x - TIE.x) * 0.3)} 455 ${x + (k % 2 ? 16 : -16)} 495 ${x} ${y}`,
@@ -62,4 +63,4 @@ const fillerStem = (f) => {
   return stemTo(x, y);
 };
 
-export default { tie: TIE, flowers: placed, fillers: fillers.map((f) => ({ ...f, i: i++, stem: fillerStem(f) })), leaves, ends, tails };
+export default { lilac: LILAC, lilacDeep: "#7E55AE", tie: TIE, flowers: placed, fillers: fillers.map((f) => ({ ...f, i: i++, stem: fillerStem(f) })), leaves, ends, tails };
