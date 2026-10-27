@@ -1,7 +1,7 @@
 # Brett & Caitlin wedding website: plan
 
 ## Status (2026-10-22)
-**P0–P5 are built and live** at https://brizzbrett.github.io/brett-and-caitlin/. All pages are up, with "coming soon" notes wherever a decision is still open. `CONTENT.md` lists every open item and where it goes.
+**P0–P5 are built and live** at https://caitlinandbrett.wedding (custom domain since 2026-10-27; the old github.io address redirects). All pages are up, with "coming soon" notes wherever a decision is still open. `CONTENT.md` lists every open item and where it goes.
 
 RSVP is built and tested (`node tools/test-rsvp.mjs`: 44 checks covering the Apps Script backend against a fake sheet and the form in a browser). It stays switched off until Brett deploys the script (`apps-script/SETUP.md`) and `site.json.rsvpEndpoint` is set.
 

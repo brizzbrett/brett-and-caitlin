@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "eleventy",
-    "build:pages": "eleventy --pathprefix=/brett-and-caitlin/",
+    "build:pages": "eleventy",
     "start": "eleventy --serve",
     "check": "npm run build && node tools/check-links.mjs && html-validate \"_site/**/*.html\""
   },

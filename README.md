@@ -12,4 +12,4 @@ Everything the couple decides lives in `src/_data/` (`site.json` for the date, t
 
 **No guest data goes in this repo.** It is public. The guest list and RSVPs live only in the Google Sheet (see `apps-script/SETUP.md`).
 
-Moving to a custom domain: add `src/static/CNAME` containing the domain, set `url` in `site.json`, change `build:pages` to drop `--pathprefix`, and set the domain under the repo's Settings → Pages.
+Live at **https://caitlinandbrett.wedding** (Squarespace domain, DNS pointed at GitHub Pages; `src/static/CNAME` holds the domain). The old brizzbrett.github.io/brett-and-caitlin address redirects there.
