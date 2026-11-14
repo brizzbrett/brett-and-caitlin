@@ -1,0 +1,34 @@
+---
+layout: page.njk
+title: Gifts
+cloth: sky
+intro: Having you there is the real gift. If you'd like to give something too, we're saving for a trip back to Japan.
+---
+<h2>{{ gifts.fund.title }}</h2>
+{%- for p in gifts.fund.text %}
+<p>{{ p }}</p>
+{%- endfor %}
+
+<h2>Ways to give</h2>
+<div class="give">
+  <section class="give-way" aria-labelledby="give-venmo">
+    <h3 id="give-venmo">Venmo</h3>
+    <p>Send to either of us.</p>
+    <div class="btn-row">
+      {%- for v in gifts.venmo %}
+      <a class="btn" href="https://venmo.com/u/{{ v.handle }}">{{ v.name }}: @{{ v.handle }}</a>
+      {%- endfor %}
+    </div>
+  </section>
+  <section class="give-way" aria-labelledby="give-zelle">
+    <h3 id="give-zelle">Zelle</h3>
+    <p>Open your banking app, choose Zelle, and scan this code. It should show {{ gifts.zelle.name }}'s name before you send.</p>
+    {#- A QR code has to stay pixel-exact, so it skips the image resizing. #}
+    <img class="qr" src="{{ gifts.zelle.qr }}" alt="Zelle QR code for sending to {{ gifts.zelle.name }}" width="668" height="668" eleventy:ignore>
+    <p class="meta">On your phone already? Press and hold the code to save it, then upload it in your banking app's Zelle scanner.</p>
+  </section>
+  <section class="give-way" aria-labelledby="give-day">
+    <h3 id="give-day">At the wedding</h3>
+    <p>A card or a check on the day is just as welcome.</p>
+  </section>
+</div>

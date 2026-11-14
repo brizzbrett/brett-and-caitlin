@@ -10,6 +10,6 @@
   { "q": "Are kids invited?", "a": null },
   { "q": "Can I take photos during the ceremony?", "a": null },
   { "q": "When do I need to RSVP?", "a": "<p>Please reply by {deadline} on the <a href=\"/rsvp/\">RSVP page</a>. You can look your invitation up again and change your answers until then.</p>" },
-  { "q": "Do you have a registry?", "a": "<p>Having you there is the gift. If you'd like to give something too, the <a href=\"/registry/\">registry page</a> has the details.</p>" },
+  { "q": "Do you have a registry?", "a": "<p>Having you there is the gift. We don't have a traditional registry. If you'd like to give something, we're saving for a trip back to Japan, and the <a href=\"/gifts/\">gifts page</a> has the details.</p>" },
   { "q": "I have a question that isn't here.", "a": null, "needs": "contactEmail" }
 ]

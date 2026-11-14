@@ -23,7 +23,7 @@ The site is live with "coming soon" notes wherever something isn't decided. Each
 | Unplugged ceremony? | the "Can I take photos during the ceremony?" answer in `faq.json` | (question hidden) |
 | Dinner choices to ask about in the RSVP (plated) or none (buffet/stations) | `site.json` → `meals`, e.g. `["Beef", "Fish", "Vegetarian"]` | no meal question |
 | Wedding hashtag | `site.json` → `hashtag` | none |
-| Registry links | `src/_data/registries.json`: `{ "name": "Zola", "url": "...", "note": "optional" }`. Use each store's public share link, not the one in your browser bar | "Our registry is coming" |
+| Gifts (done 2026-11-14) | `src/_data/gifts.json`: the Japan trip fund text, both Venmo handles, and the Zelle QR code in `src/static/gifts/` | live |
 | Hotel room blocks | `travel.json` → `hotelBlocks`: `{ "name", "address", "drive", "code", "cutoff": "2027-04-01", "url" }` | "Room blocks are coming" plus the list of nearby hotels |
 
 ## Assumptions to confirm (already on the site)

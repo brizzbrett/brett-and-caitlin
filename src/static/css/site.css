@@ -406,12 +406,16 @@ th { font-weight: 650; color: var(--fern); }
 .party .name { font-family: var(--display); font-size: 1.15rem; color: var(--fern); display: block; }
 .party .role { color: var(--ink-soft); font-size: 0.95rem; }
 
-/* Registry */
-.registries { list-style: none; margin: 1.5rem 0; padding: 0; display: grid; gap: 1rem; }
-.registries a { display: flex; justify-content: space-between; align-items: center; gap: 1rem; text-decoration: none; color: var(--ink);
-  background: var(--paper); border: 1px solid var(--line); border-left: 8px solid var(--cloth); border-radius: var(--radius); padding: 1.1rem 1.25rem; }
-.registries a:hover { border-color: var(--cloth); }
-.registries strong { font-family: var(--display); font-size: 1.3rem; color: var(--fern); font-weight: 560; }
+/* Gifts */
+.give { display: grid; gap: 1rem; margin: 1.25rem 0; }
+.give-way { background: var(--paper); border: 1px solid var(--line); border-left: 8px solid var(--cloth); border-radius: var(--radius); padding: 1.1rem 1.25rem; }
+.give-way h3 { margin: 0 0 0.3rem; font-size: 1.3rem; }
+.give-way p { margin: 0 0 0.6rem; }
+.give-way p:last-child { margin-bottom: 0; }
+.give-way .btn-row { margin: 0.75rem 0 0; }
+.give-way .meta { color: var(--ink-soft); font-size: 0.95rem; }
+/* The code stays black on white in both themes so banking apps can read it. */
+.qr { width: min(15rem, 100%); height: auto; background: #fff; border-radius: 10px; border: 1px solid var(--line); margin: 0.5rem 0 0.75rem; image-rendering: pixelated; }
 
 /* ---------- RSVP form ---------- */
 .rsvp { margin: 1rem 0; }

@@ -1,0 +1,14 @@
+{
+  "fund": {
+    "title": "Our Japan trip",
+    "text": [
+      "Japan holds a very special place in our hearts. Our shared love of Japanese culture, anime, history and beauty has been a huge part of our relationship and the bond we share.",
+      "Brett even proposed to Caitlin near Mt. Fuji, at a theme park based on her favorite anime, Naruto. We would love to go back and experience even more of Japan!"
+    ]
+  },
+  "venmo": [
+    { "name": "Brett", "handle": "brizzbrett" },
+    { "name": "Caitlin", "handle": "koopacaitlin" }
+  ],
+  "zelle": { "name": "Brett", "qr": "/gifts/zelle-qr.png" }
+}
