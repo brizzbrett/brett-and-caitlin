@@ -32,7 +32,7 @@ The RSVP form on the site talks to a small script attached to a Google Sheet in 
 
    | A | B |
    |---|---|
-   | Deadline | 4/4/2027 |
+   | Deadline | 3/28/2027 |
    | Notify email | the address that should get an email for each RSVP |
 
    Make sure B1 is a real date (Format → Number → Date). RSVPs close at the end of that day, Eastern time.
@@ -54,7 +54,7 @@ The RSVP form on the site talks to a small script attached to a Google Sheet in 
 ## 4. Check it, then switch the site over
 
 1. Open the URL with `?name=Jordan%20Example` (any name from your Guests tab) on the end. You should see a line of text starting `{"ok":true`. A name that isn't on the list gives `{"ok":false,"error":"not_found"}`.
-2. Put the URL in `src/_data/site.json` as `"rsvpEndpoint"`, and set `"rsvpDeadline"` to the same date as the Sheet (`"2027-04-04"`). Commit and push, or send the URL to Claude.
+2. Put the URL in `src/_data/site.json` as `"rsvpEndpoint"`, and set `"rsvpDeadline"` to the same date as the Sheet (`"2027-03-28"`). Commit and push, or send the URL to Claude.
 3. Try it on the live site with a test row (for example `P99 | Test Guest`), then delete that row and its replies from both tabs.
 
 ## Changing the script later

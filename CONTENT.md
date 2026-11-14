@@ -28,7 +28,7 @@ The site is live with "coming soon" notes wherever something isn't decided. Each
 
 ## Assumptions to confirm (already on the site)
 
-- **RSVP deadline: Sunday, April 4, 2027** (four weeks out, so the caterer gets a count about two weeks before). Change it in `site.json` → `rsvpDeadline` and in the Sheet's Settings tab.
+- **RSVP deadline: Sunday, March 28, 2027** (five weeks out; confirmed by Brett on 2026-11-14). Change it in `site.json` → `rsvpDeadline` and in the Sheet's Settings tab.
 - "Please arrive about 30 minutes early" (Schedule, FAQ).
 - "The night wraps up around 11 PM" (Schedule). That's Dover Hall's usual end time.
 - Accessibility: "let us know in your RSVP and we'll make sure someone's there to help" (FAQ).

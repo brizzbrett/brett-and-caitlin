@@ -166,7 +166,7 @@ Plus a **404 page**, `robots.txt`, and a footer with "Made with love", the conta
 
   Each later code change needs a new deployment version; the guide says so.
 - **Until `rsvpEndpoint` is set,** the RSVP page shows "RSVPs open with the invitations."
-- **Default deadline:** about April 4, 2027 (4 weeks out), stored in `site.json` and the sheet's Settings tab so it's easy to change.
+- **Deadline:** March 28, 2027 (5 weeks out; moved a week earlier on 2026-11-14), stored in `site.json` and the sheet's Settings tab so it's easy to change.
 
 ## Phases (a commit at the end of each; `PLAN.md` kept in the repo)
 - **P0:** create the repo, scaffold Eleventy and `site.json`, add the base layout with nav, noindex and the Pages workflow, and deploy a "hello" page. Confirm the github.io URL loads.
