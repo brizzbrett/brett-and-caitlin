@@ -8,6 +8,12 @@ intro: Having you there is the real gift. If you'd like to give something too, w
 {%- for p in gifts.fund.text %}
 <p>{{ p }}</p>
 {%- endfor %}
+<ul class="trip-photos">
+  {%- for ph in gifts.fund.photos %}
+  <li{% if ph.wide %} class="wide"{% endif %}><img src="/assets/photos/{{ ph.file }}" alt="{{ ph.alt }}" sizes="(min-width: 40rem) {{ '38rem' if ph.wide else '19rem' }}, {{ '92vw' if ph.wide else '46vw' }}" eleventy:widths="480,960,1600"></li>
+  {%- endfor %}
+</ul>
+<p class="meta">The proposal, at the Naruto park near Mt. Fuji.</p>
 
 <h2>Ways to give</h2>
 <div class="give">
